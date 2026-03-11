@@ -37,9 +37,9 @@ namespace TestAPIproject.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(EmployeeCreateViewModel dto)
         {
-            var employees = _mapper.Map<Employee>(dto);
+            //var employees = _mapper.Map<Employee>(dto);
 
-            var createdEmployee = await _services.AddAsync(employees);
+            var createdEmployee = await _services.AddAsync(dto);
 
             return CreatedAtAction(
                 nameof(GetById),

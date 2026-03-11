@@ -33,7 +33,7 @@ namespace TestAPIproject.Service
             return await _repo.GetByIdAsync(id);
         }
 
-        public async Task<Employee> AddAsync(Employee model)
+        public async Task<Employee> AddAsync(EmployeeCreateViewModel model)
         {
             // Example business rule
             if (string.IsNullOrWhiteSpace(model.Name))

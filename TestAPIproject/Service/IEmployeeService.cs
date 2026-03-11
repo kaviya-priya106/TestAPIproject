@@ -8,7 +8,7 @@ namespace TestAPIproject.Service
     {
         Task<IEnumerable<EmployeeListViewModel>> GetAllAsync();
         Task<Employee?> GetByIdAsync(int id);
-        Task<Employee?> AddAsync(Employee employee);
+        Task<Employee?> AddAsync(EmployeeCreateViewModel employee);
         Task UpdateAsync(EmployeeEditViewModel employee);
         Task DeleteAsync(int id);
     }
