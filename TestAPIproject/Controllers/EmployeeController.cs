@@ -17,7 +17,12 @@ namespace TestAPIproject.Controllers
         {
             _services = repo;
         }
-   
+
+        [HttpGet("test-error")]
+        public IActionResult TestError()
+        {
+            throw new Exception("This is a test exception");
+        }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
