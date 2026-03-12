@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TestAPIproject.Data;
+using TestAPIproject.Middleware;
 using TestAPIproject.Repository;
 using TestAPIproject.Service;
 
@@ -22,6 +23,7 @@ builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddAutoMapper(typeof(Program));
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -30,7 +32,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

@@ -35,9 +35,7 @@ namespace TestAPIproject.Service
 
         public async Task<Employee> AddAsync(EmployeeCreateViewModel model)
         {
-            // Example business rule
-            if (string.IsNullOrWhiteSpace(model.Name))
-                throw new Exception("Employee name cannot be empty");
+      
             var employee = _mapper.Map<Employee>(model);
             /*var employee = new Employee
             {

@@ -12,10 +12,11 @@ namespace TestAPIproject.ViewModels
 
         public class EmployeeCreateViewModel
         {
-       
-       
-            [Required]
-            public string Name { get; set; }
+
+
+        [Required(ErrorMessage = "Name is required")]
+        [StringLength(50)]
+        public string Name { get; set; }
 
         public string Department { get; set; }
 
@@ -27,9 +28,12 @@ namespace TestAPIproject.ViewModels
         [Required]
             public int Id { get; set; }
 
-            [Required]
-            public string Name { get; set; }
-            public int Salary { get; set; }
+        [Required(ErrorMessage = "Name is required")]
+        [StringLength(50)]
+        public string Name { get; set; }
+
+        [Range(10000, 1000000)]
+        public int Salary { get; set; }
         }
   }
 

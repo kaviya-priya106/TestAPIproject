@@ -11,12 +11,11 @@ namespace TestAPIproject.Controllers
     public class EmployeeController : ControllerBase
     {
         private IEmployeeService _services;
-        private IMapper _mapper;
 
-        public EmployeeController(IEmployeeService repo, IMapper mapper)
+
+        public EmployeeController(IEmployeeService repo)
         {
             _services = repo;
-            _mapper = mapper;
         }
    
 
@@ -37,7 +36,6 @@ namespace TestAPIproject.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(EmployeeCreateViewModel dto)
         {
-            //var employees = _mapper.Map<Employee>(dto);
 
             var createdEmployee = await _services.AddAsync(dto);
 
