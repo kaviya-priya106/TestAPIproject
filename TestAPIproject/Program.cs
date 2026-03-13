@@ -3,8 +3,18 @@ using TestAPIproject.Data;
 using TestAPIproject.Middleware;
 using TestAPIproject.Repository;
 using TestAPIproject.Service;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+builder.Host.UseSerilog();
+
+
 
 // Add services to the container.
 
@@ -38,5 +48,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseSerilogRequestLogging();
 
 app.Run();

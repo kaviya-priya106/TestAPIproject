@@ -10,10 +10,12 @@ namespace TestAPIproject.Service
     {
         private readonly IEmployeeRepository _repo;
         private readonly IMapper _mapper;
-        public EmployeeService(IEmployeeRepository repo, IMapper mapper)
+        private readonly ILogger<EmployeeService> _logger;
+        public EmployeeService(IEmployeeRepository repo, IMapper mapper,ILogger<EmployeeService> logger)
         {
             _repo = repo;
             _mapper = mapper;
+            _logger = logger;
         }
 
        
@@ -45,6 +47,7 @@ namespace TestAPIproject.Service
             };*/
 
             await _repo.AddAsync(employee);
+            _logger.LogInformation(employee.Id, "added sccessfully");
             return employee;
         }
 

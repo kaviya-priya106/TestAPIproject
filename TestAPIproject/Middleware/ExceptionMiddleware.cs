@@ -1,4 +1,6 @@
-﻿namespace TestAPIproject.Middleware
+﻿using Serilog;
+
+namespace TestAPIproject.Middleware
 {
     public class ExceptionMiddleware
     {
@@ -17,6 +19,7 @@
             }
             catch (Exception ex)
             {
+                Log.Error(ex, "unhandled exception occurred");
                 await HandleExceptionAsync(context, ex);
             }
         }
