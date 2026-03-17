@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TestAPIproject.Models;
 using TestAPIproject.Service;
@@ -6,6 +7,7 @@ using TestAPIproject.ViewModels;
 
 namespace TestAPIproject.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class EmployeeController : ControllerBase

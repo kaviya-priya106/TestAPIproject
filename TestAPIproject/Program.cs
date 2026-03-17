@@ -4,6 +4,9 @@ using TestAPIproject.Middleware;
 using TestAPIproject.Repository;
 using TestAPIproject.Service;
 using Serilog;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +18,6 @@ Log.Logger = new LoggerConfiguration()
 builder.Host.UseSerilog();
 
 
-
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -25,6 +27,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 options.UseSqlServer(
@@ -33,6 +37,26 @@ builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddAutoMapper(typeof(Program));
 
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidAudience = jwtSettings["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(
+            Encoding.UTF8.GetBytes(jwtSettings["Key"]))
+    };
+});
 
 var app = builder.Build();
 
@@ -45,8 +69,9 @@ if (app.Environment.IsDevelopment())
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
 
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
 app.UseSerilogRequestLogging();
 
