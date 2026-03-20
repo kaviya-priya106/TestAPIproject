@@ -78,7 +78,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // 🔹 Dependency Injection
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 // 🔹 AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
