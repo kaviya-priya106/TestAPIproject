@@ -20,11 +20,16 @@ namespace TestAPIproject.Controllers
         [HttpGet("my-orders")]
         public async Task<IActionResult> GetMyOrders()
         {
-            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-
-            var orders = await _services.GetOrderByUserId(userId);
-
-            return Ok(orders);
+              var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+              if (userId != null)
+             {
+                  var orders = await _services.GetOrderByUserId(userId);
+                  return Ok(orders);
+             }
+             else
+            {
+               return Ok("No orders exist");
+            }
         }
     }
 }
