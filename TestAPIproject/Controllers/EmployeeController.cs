@@ -51,17 +51,6 @@ namespace TestAPIproject.Controllers
             return Ok(await _services.GetByIdAsync(id));
         }
 
-        [Authorize]
-        [HttpGet("my-orders")]
-        public async Task< IActionResult> GetMyOrders()
-        {
-            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-
-            var orders = await _services.GetOrderByUserId(userId);
-
-            return Ok(orders);
-        }
-
 
         [HttpPost]
         public async Task<IActionResult> Create(EmployeeCreateViewModel dto)
