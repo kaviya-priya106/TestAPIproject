@@ -37,6 +37,11 @@ namespace TestAPIproject.Repository
             await _context.SaveChangesAsync();
         }
 
+        public async Task<List<Order?>> GetOrderByUserId(int UserId)
+        {
+            return await _context.Orders.Where(o=>o.UserId==UserId).ToListAsync();
+        }
+
         public async Task DeleteAsync(int id)
         {
             var emp = await _context.Employees.FindAsync(id);

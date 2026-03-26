@@ -35,6 +35,11 @@ namespace TestAPIproject.Service
             return await _repo.GetByIdAsync(id);
         }
 
+        public async Task<List<Order?>> GetOrderByUserId(int id)
+        {
+            return await _repo.GetOrderByUserId(id);
+        }
+
         public async Task<Employee> AddAsync(EmployeeCreateViewModel model)
         {
       

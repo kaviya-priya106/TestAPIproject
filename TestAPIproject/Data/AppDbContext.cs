@@ -8,6 +8,8 @@ namespace TestAPIproject.Data
     {
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Users> User { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
         {

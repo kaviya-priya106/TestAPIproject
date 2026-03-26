@@ -6,5 +6,7 @@ namespace TestAPIproject.Service
     {
         //Task<string> LoginAsync(LoginDto dto);
         Task<string> LoginAsync(string username, string password);
+
+        Task<string> RegisterAsync(RegisterDto dto);
     }
 }

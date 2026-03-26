@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -42,5 +44,15 @@ public class AuthController : ControllerBase
         }
     }
 
- 
+    [HttpPost("register")]
+    public async Task<IActionResult> Register(RegisterDto dto)
+    {
+        var hashedPassword = await _authService.RegisterAsync(dto);
+        return Ok(hashedPassword);
+
+    }
+
+
+
+
 }

@@ -7,7 +7,7 @@ namespace TestAPIproject.Repository
         Task<IEnumerable<Employee>> GetAllAsync();
 
         Task<Employee?> GetByIdAsync(int id);
-
+        Task<List<Order>> GetOrderByUserId(int userId);
         Task AddAsync(Employee emp);
 
         Task SaveAsync();

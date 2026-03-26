@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using TestAPIproject.Models;
 using TestAPIproject.Service;
 using TestAPIproject.ViewModels;
@@ -20,10 +21,21 @@ namespace TestAPIproject.Controllers
             _services = repo;
         }
 
-        [HttpGet("test-error")]
-        public IActionResult TestError()
+
+        [Authorize]
+        [HttpGet("get-data")]
+        public IActionResult GetData()
         {
-            throw new Exception("This is a test exception");
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+            if (role == "Admin")
+            {
+                return Ok("You're" + role);
+            }
+            else
+            {
+                return Ok("You're" + role);
+            }
         }
 
         [HttpGet]
@@ -37,6 +49,17 @@ namespace TestAPIproject.Controllers
         public async Task< IActionResult> GetById(int id)
         {
             return Ok(await _services.GetByIdAsync(id));
+        }
+
+        [Authorize]
+        [HttpGet("my-orders")]
+        public async Task< IActionResult> GetMyOrders()
+        {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+
+            var orders = await _services.GetOrderByUserId(userId);
+
+            return Ok(orders);
         }
 
 
