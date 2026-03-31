@@ -35,10 +35,7 @@ namespace TestAPIproject.Service
             return await _repo.GetByIdAsync(id);
         }
 
-        public async Task<List<Order?>> GetOrderByUserId(int id)
-        {
-            return await _repo.GetOrderByUserId(id);
-        }
+     
 
         public async Task<Employee> AddAsync(EmployeeCreateViewModel model)
         {
@@ -66,7 +63,7 @@ namespace TestAPIproject.Service
             employee.Name = model.Name;
             employee.Salary = model.Salary;
 
-            // Do NOT touch Department if not part of edit
+
 
             await _repo.SaveAsync();
         }
@@ -75,5 +72,7 @@ namespace TestAPIproject.Service
         {
             await _repo.DeleteAsync(id);
         }
+
+    
     }
 }

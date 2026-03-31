@@ -37,10 +37,11 @@ namespace TestAPIproject.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<Order?>> GetOrderByUserId(int UserId)
+        /*public async Task GetOrderByUserId(int id)
         {
-            return await _context.Orders.Where(o=>o.UserId==UserId).ToListAsync();
-        }
+            return await _context.Orders.FindAsync(id);
+        }*/
+
 
         public async Task DeleteAsync(int id)
         {
@@ -51,5 +52,6 @@ namespace TestAPIproject.Repository
                 await _context.SaveChangesAsync();
             }
         }
+
     }
 }

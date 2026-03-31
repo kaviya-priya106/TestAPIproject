@@ -10,6 +10,8 @@ namespace TestAPIproject.profile
         {
             CreateMap<EmployeeCreateViewModel, Employee>();
             CreateMap< Employee,EmployeeListViewModel>();
+            CreateMap<OrdersDto, Order>();
+            CreateMap<Order, OrdersDto>();
         }
     }
 }

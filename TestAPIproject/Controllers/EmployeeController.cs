@@ -23,8 +23,8 @@ namespace TestAPIproject.Controllers
 
 
         [Authorize]
-        [HttpGet("get-data")]
-        public IActionResult GetData()
+        [HttpGet("check-role")]
+        public IActionResult checkRole()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var role = User.FindFirst(ClaimTypes.Role)?.Value;
@@ -38,7 +38,7 @@ namespace TestAPIproject.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("get-employees-list")]
         public async Task<IActionResult> GetAll()
         {
             var employees = await _services.GetAllAsync();
