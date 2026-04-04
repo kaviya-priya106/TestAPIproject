@@ -72,9 +72,9 @@ namespace TestAPIproject.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int orderId, int userId)
         {
-            await _services.DeleteOrdersAsync(id);
+            await _services.DeleteOrdersAsync(orderId,userId);
             return NoContent();
         }
     }

@@ -85,6 +85,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IOrdersRepository, OrdersRepository>();
 builder.Services.AddScoped<IOrdersService, OrdersService>();
+builder.Services.AddMemoryCache();
 // 🔹 AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
 

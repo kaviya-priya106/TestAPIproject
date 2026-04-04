@@ -9,6 +9,6 @@ namespace TestAPIproject.Service
         Task<Order> GetOrderByOrderId(int orderId);
         Task UpdateOrdersAsync(UpdateOrders updateOrders, int id);
 
-        Task DeleteOrdersAsync(int id);
+        Task DeleteOrdersAsync(int orderId, int userId);
     }
 }

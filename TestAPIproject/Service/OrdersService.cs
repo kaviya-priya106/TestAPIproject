@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Caching.Memory;
 using TestAPIproject.Models;
 using TestAPIproject.Repository;
 
@@ -10,17 +11,36 @@ namespace TestAPIproject.Service
         private readonly IOrdersRepository _repo;
         private readonly IMapper _mapper;
         private readonly ILogger<EmployeeService> _logger;
-        public OrdersService(IOrdersRepository repo, IMapper mapper, ILogger<EmployeeService> logger)
+        private readonly IMemoryCache _cache;
+        public OrdersService(IOrdersRepository repo, IMapper mapper, ILogger<EmployeeService> logger, IMemoryCache cache)
         {
             _repo = repo;
             _mapper = mapper;
             _logger = logger;
+            _cache = cache;
         }
 
 
         public async Task<List<Order?>> GetOrderByUserId(int id)
         {
-            return await _repo.GetOrderByUserId(id);
+            string cacheKey = $"orders_user_{id}";
+
+            // Try get from cache
+            if (!_cache.TryGetValue(cacheKey, out List<Order> orders))
+            {
+                // Not in cache → fetch from DB
+                orders =  await _repo.GetOrderByUserId(id);
+
+                // Store in cache
+                var cacheOptions = new MemoryCacheEntryOptions()
+                    .SetAbsoluteExpiration(TimeSpan.FromMinutes(5)) // expires in 5 mins
+                    .SetSlidingExpiration(TimeSpan.FromMinutes(2)); // resets if accessed
+
+                _cache.Set(cacheKey, orders, cacheOptions);
+            }
+
+            return orders;
+            //return await _repo.GetOrderByUserId(id);
         }
 
         public async Task<Order?> GetOrderByOrderId(int orderid)
@@ -34,6 +54,7 @@ namespace TestAPIproject.Service
             var orders = _mapper.Map<Order>(dto);
             orders.UserId = userId;
             await _repo.AddOrderAsync(orders);
+            _cache.Remove($"orders_user_{orders.UserId}");
             _logger.LogInformation("Order created: {Product}", orders.ProductName);
             return orders;
 
@@ -52,14 +73,15 @@ namespace TestAPIproject.Service
             order.ProductName = updateOrders.productName;
             order.Price = updateOrders.price;
             await _repo.UpdateOrdersAsync();
-
+            _cache.Remove($"orders_user_{order.UserId}");
 
         }
 
 
-        public async Task DeleteOrdersAsync(int id)
+        public async Task DeleteOrdersAsync(int orderId, int userId)
         {
-            await _repo.DeleteOrdersAsync(id);
+            await _repo.DeleteOrdersAsync(orderId);
+            _cache.Remove($"orders_user_{userId}");
         }
     }
 }
