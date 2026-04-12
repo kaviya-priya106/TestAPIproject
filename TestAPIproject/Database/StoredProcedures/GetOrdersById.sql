@@ -1,0 +1,6 @@
+﻿CREATE OR ALTER PROCEDURE GetOrdersById
+    @Id INT
+AS
+BEGIN
+    SELECT * FROM Orders WHERE Id = @Id
+END

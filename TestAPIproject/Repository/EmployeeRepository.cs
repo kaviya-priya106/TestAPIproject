@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using System;
 using TestAPIproject.Data;
 using TestAPIproject.Models;
@@ -21,7 +22,15 @@ namespace TestAPIproject.Repository
 
         public async Task<Employee?> GetByIdAsync(int id)
         {
-            return await _context.Employees.FindAsync(id);
+            var param = new SqlParameter("@Id", id);
+
+            var result = await _context.Employees
+     .FromSqlRaw("EXEC GetEmployeeById @Id", param)
+     .AsNoTracking()
+     .ToListAsync();
+
+            return result.FirstOrDefault();
+            //return await _context.Employees.FindAsync(id);
         }
 
         public async Task AddAsync(Employee emp)
