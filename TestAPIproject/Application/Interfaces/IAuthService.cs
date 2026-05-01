@@ -1,6 +1,6 @@
-﻿using TestAPIproject.Models;
+﻿using TestAPIproject.Domain;
 
-namespace TestAPIproject.Service
+namespace TestAPIproject.Application.Interfaces
 {
     public interface IAuthService
     {

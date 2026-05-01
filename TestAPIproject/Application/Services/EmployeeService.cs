@@ -1,24 +1,26 @@
-﻿using static TestAPIproject.ViewModels.EmployeeDto;
-using TestAPIproject.Models;
-using TestAPIproject.Repository;
-using TestAPIproject.ViewModels;
+﻿using static TestAPIproject.Application.Dto.EmployeeDto;
 using AutoMapper;
+using TestAPIproject.Application.Dto;
+using TestAPIproject.Infrastructure.Repository;
+using TestAPIproject.Application.Interfaces;
+using TestAPIproject.Domain;
+using TestAPIproject.Middleware;
 
-namespace TestAPIproject.Service
+namespace TestAPIproject.Application.Service
 {
-    public class EmployeeService: IEmployeeService
+    public class EmployeeService : IEmployeeService
     {
         private readonly IEmployeeRepository _repo;
         private readonly IMapper _mapper;
         private readonly ILogger<EmployeeService> _logger;
-        public EmployeeService(IEmployeeRepository repo, IMapper mapper,ILogger<EmployeeService> logger)
+        public EmployeeService(IEmployeeRepository repo, IMapper mapper, ILogger<EmployeeService> logger)
         {
             _repo = repo;
             _mapper = mapper;
             _logger = logger;
         }
 
-       
+
         public async Task<IEnumerable<EmployeeDto>> GetAllAsync(PaginationParams pagination)
         {
             var employees = await _repo.GetAllAsync(pagination.PageNumber, pagination.PageSize);
@@ -34,11 +36,11 @@ namespace TestAPIproject.Service
             return await _repo.GetByIdAsync(id);
         }
 
-     
+
 
         public async Task<Employee> AddAsync(EmployeeCreateDto model)
         {
-      
+
             var employee = _mapper.Map<Employee>(model);
             /*var employee = new Employee
             {
@@ -72,6 +74,6 @@ namespace TestAPIproject.Service
             await _repo.DeleteAsync(id);
         }
 
-    
+
     }
 }

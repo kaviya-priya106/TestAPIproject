@@ -1,7 +1,7 @@
-﻿using TestAPIproject.Models;
-using TestAPIproject.Dto;
+﻿using TestAPIproject.Application.Dto;
+using TestAPIproject.Domain;
 
-namespace TestAPIproject.Service
+namespace TestAPIproject.Application.Interfaces
 {
     public interface IOrdersService
     {

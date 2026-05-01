@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using TestAPIproject.Models;
+using TestAPIproject.Domain;
 
-namespace TestAPIproject.Data
+namespace TestAPIproject.Infrastructure.Data
 {
     public class AppDbContext : DbContext
     {

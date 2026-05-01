@@ -1,16 +1,15 @@
 ﻿using AutoMapper;
-using TestAPIproject.Models;
-using TestAPIproject.ViewModels;
-using TestAPIproject.Dto;
+using TestAPIproject.Application.Dto;
+using TestAPIproject.Domain;
 
-namespace TestAPIproject.profile
+namespace TestAPIproject.Application.Mappings
 {
-    public class MappingProfile:Profile
+    public class MappingProfile : Profile
     {
         public MappingProfile()
         {
             CreateMap<EmployeeCreateDto, Employee>();
-            CreateMap< Employee,EmployeeDto>();
+            CreateMap<Employee, EmployeeDto>();
             CreateMap<AddOrdersDto, Order>();
             CreateMap<Order, AddOrdersDto>();
         }

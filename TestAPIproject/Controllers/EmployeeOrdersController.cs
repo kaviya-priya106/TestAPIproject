@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using TestAPIproject.Models;
-using TestAPIproject.Service;
-using TestAPIproject.Dto;
+using TestAPIproject.Application.Dto;
+using TestAPIproject.Application.Interfaces;
 
 namespace TestAPIproject.Controllers
 {

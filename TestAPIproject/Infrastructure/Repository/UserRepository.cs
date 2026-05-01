@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TestAPIproject.Data;
-using TestAPIproject.Models;
+using TestAPIproject.Domain;
+using TestAPIproject.Infrastructure.Data;
 
-namespace TestAPIproject.Repository
+namespace TestAPIproject.Infrastructure.Repository
 {
     public class UserRepository : IUserRepository
     {

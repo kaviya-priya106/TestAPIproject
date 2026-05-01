@@ -1,14 +1,15 @@
-﻿using TestAPIproject.Models;
-using TestAPIproject.Repository;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TestAPIproject.Data;
+using TestAPIproject.Infrastructure.Repository;
+using TestAPIproject.Infrastructure.Data;
+using TestAPIproject.Application.Interfaces;
+using TestAPIproject.Domain;
 
-namespace TestAPIproject.Service
+namespace TestAPIproject.Application.Service
 {
     public class AuthService : IAuthService
     {
@@ -16,7 +17,7 @@ namespace TestAPIproject.Service
         private readonly IUserRepository _repo;
         private AppDbContext _context;
 
-        public AuthService(IConfiguration config, IUserRepository repo,AppDbContext context)
+        public AuthService(IConfiguration config, IUserRepository repo, AppDbContext context)
         {
             _config = config;
             _repo = repo;

@@ -1,13 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TestAPIproject.Data;
 using TestAPIproject.Middleware;
-using TestAPIproject.Repository;
-using TestAPIproject.Service;
 using Serilog;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Options;
+using TestAPIproject.Application.Service;
+using TestAPIproject.Infrastructure.Repository;
+using TestAPIproject.Infrastructure.Data;
+using TestAPIproject.Application.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,4 +1,4 @@
-﻿namespace TestAPIproject.Models
+﻿namespace TestAPIproject.Middleware
 {
     public class PaginationParams
     {

@@ -1,12 +1,12 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
-using TestAPIproject.Data;
-using TestAPIproject.Models;
+using TestAPIproject.Domain;
+using TestAPIproject.Infrastructure.Data;
 
-namespace TestAPIproject.Repository
+namespace TestAPIproject.Infrastructure.Repository
 {
-    public class EmployeeRepository:IEmployeeRepository
+    public class EmployeeRepository : IEmployeeRepository
     {
         private AppDbContext _context;
 

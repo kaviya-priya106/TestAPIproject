@@ -1,4 +1,4 @@
-﻿namespace TestAPIproject.Dto
+﻿namespace TestAPIproject.Application.Dto
 {
     public class OrdersDto
     {

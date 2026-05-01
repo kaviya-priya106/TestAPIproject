@@ -1,8 +1,9 @@
-﻿using static TestAPIproject.ViewModels.EmployeeDto;
-using TestAPIproject.Models;
-using TestAPIproject.ViewModels;
+﻿using static TestAPIproject.Application.Dto.EmployeeDto;
+using TestAPIproject.Application.Dto;
+using TestAPIproject.Domain;
+using TestAPIproject.Middleware;
 
-namespace TestAPIproject.Service
+namespace TestAPIproject.Application.Interfaces
 {
     public interface IEmployeeService
     {

@@ -1,6 +1,6 @@
 ﻿//using FluentValidation;
 
-namespace TestAPIproject.Models
+namespace TestAPIproject.Domain
 {
     /*  public class Order
       {

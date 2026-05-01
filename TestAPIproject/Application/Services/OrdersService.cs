@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Caching.Memory;
-using TestAPIproject.Models;
-using TestAPIproject.Repository;
-using TestAPIproject.Dto;
+using TestAPIproject.Application.Dto;
+using TestAPIproject.Infrastructure.Repository;
+using TestAPIproject.Application.Interfaces;
+using TestAPIproject.Domain;
 
-namespace TestAPIproject.Service
+namespace TestAPIproject.Application.Service
 {
-    public class OrdersService:IOrdersService
+    public class OrdersService : IOrdersService
     {
 
         private readonly IOrdersRepository _repo;
@@ -30,7 +31,7 @@ namespace TestAPIproject.Service
             if (!_cache.TryGetValue(cacheKey, out List<Order> orders))
             {
                 // Not in cache → fetch from DB
-                orders =  await _repo.GetOrderByUserId(id);
+                orders = await _repo.GetOrderByUserId(id);
 
                 // Store in cache
                 var cacheOptions = new MemoryCacheEntryOptions()

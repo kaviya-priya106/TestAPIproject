@@ -1,7 +1,7 @@
 ﻿//using FluentValidation;
 using System.ComponentModel.DataAnnotations;
 
-namespace TestAPIproject.Models
+namespace TestAPIproject.Domain
 {
     public class Employee
     {
@@ -9,7 +9,7 @@ namespace TestAPIproject.Models
         public int EmployeeId { get; set; }
         public string? Name { get; set; }
 
-        public int Salary { get;private  set; }
+        public int Salary { get; private set; }
 
 
         public void UpdateSalary(int salary)
@@ -43,4 +43,3 @@ namespace TestAPIproject.Models
         }
     } */
 }
-     

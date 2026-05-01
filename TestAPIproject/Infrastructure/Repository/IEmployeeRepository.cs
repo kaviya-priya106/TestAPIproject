@@ -1,6 +1,6 @@
-﻿using TestAPIproject.Models;
+﻿using TestAPIproject.Domain;
 
-namespace TestAPIproject.Repository
+namespace TestAPIproject.Infrastructure.Repository
 {
     public interface IEmployeeRepository
     {

@@ -1,17 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TestAPIproject.ViewModels
+namespace TestAPIproject.Application.Dto
 {
-       public class EmployeeDto
-       {
-            public int Id { get; set; }
-            public string Name { get; set; }
+    public class EmployeeDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
 
-            public string Department { get; set; }
-        }
+        public string Department { get; set; }
+    }
 
-        public class EmployeeCreateDto
-        {
+    public class EmployeeCreateDto
+    {
 
 
         [Required(ErrorMessage = "Name is required")]
@@ -23,10 +23,10 @@ namespace TestAPIproject.ViewModels
         public string Role { get; set; }
     }
 
-        public class EmployeeEditDto
-        {
+    public class EmployeeEditDto
+    {
         [Required]
-            public int Id { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "Name is required")]
         [StringLength(50)]
@@ -34,6 +34,6 @@ namespace TestAPIproject.ViewModels
 
         [Range(10000, 1000000)]
         public int Salary { get; set; }
-        }
-  }
+    }
+}
 
