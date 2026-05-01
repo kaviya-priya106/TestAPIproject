@@ -1,4 +1,5 @@
 ﻿using Serilog;
+using TestAPIproject.Models;
 
 namespace TestAPIproject.Middleware
 {
@@ -24,18 +25,28 @@ namespace TestAPIproject.Middleware
             }
         }
 
-        private static Task HandleExceptionAsync(HttpContext context, Exception ex)
+        private static async Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = 500;
 
-            var result = new
+            var statusCode = ex switch
             {
-                StatusCode = context.Response.StatusCode,
-                Message = ex.Message
+                ArgumentException => StatusCodes.Status400BadRequest,
+                KeyNotFoundException => StatusCodes.Status404NotFound,
+                UnauthorizedAccessException => StatusCodes.Status401Unauthorized,
+                _ => StatusCodes.Status500InternalServerError
             };
 
-            return context.Response.WriteAsJsonAsync(result);
+            context.Response.StatusCode = statusCode;
+
+            var response = new ApiResponse<string>
+            {
+                Success = false,
+                Message = ex.Message,
+                Data = null
+            };
+
+            await context.Response.WriteAsJsonAsync(response);
         }
     }
 }

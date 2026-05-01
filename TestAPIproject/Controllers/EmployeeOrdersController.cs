@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using TestAPIproject.Models;
 using TestAPIproject.Service;
-using TestAPIproject.ViewModels;
+using TestAPIproject.Dto;
 
 namespace TestAPIproject.Controllers
 {
@@ -43,7 +43,7 @@ namespace TestAPIproject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateOrders(OrdersDto dto)
+        public async Task<IActionResult> CreateOrders(AddOrdersDto dto)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
 
@@ -62,20 +62,30 @@ namespace TestAPIproject.Controllers
 
         
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditOrders(UpdateOrders updateOrders,int id)
+        public async Task<IActionResult> EditOrders(UpdateOrdersDto updateOrders,int id)
         {
             if(id!=updateOrders.Id)
                 return BadRequest();
 
             await _services.UpdateOrdersAsync(updateOrders,id);
-            return NoContent();
+            return Ok(new ApiResponse<string>
+            {
+                Success = true,
+                Message = "Updated successfully",
+                Data = "Success"
+            });
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int orderId, int userId)
         {
             await _services.DeleteOrdersAsync(orderId,userId);
-            return NoContent();
+            return Ok(new ApiResponse<string>
+            {
+                Success = true,
+                Message = "Order is deleted",
+                Data = "Success"
+            });
         }
     }
 }

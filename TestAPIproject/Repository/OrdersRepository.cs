@@ -17,7 +17,7 @@ namespace TestAPIproject.Repository
         public async Task<List<Order?>> GetOrderByUserId(int userid)
         {
             //return await _context.Orders.FindAsync(userid) ;
-            return await _context.Orders.Where(o => o.UserId == userid).ToListAsync();
+            return await _context.Orders.Where(o => o.UserId == userid).AsNoTracking().ToListAsync();
         }
 
         public async Task<Order?> GetOrderByOrderId(int orderd)

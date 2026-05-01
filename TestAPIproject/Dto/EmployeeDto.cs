@@ -2,7 +2,7 @@
 
 namespace TestAPIproject.ViewModels
 {
-       public class EmployeeListViewModel
+       public class EmployeeDto
        {
             public int Id { get; set; }
             public string Name { get; set; }
@@ -10,7 +10,7 @@ namespace TestAPIproject.ViewModels
             public string Department { get; set; }
         }
 
-        public class EmployeeCreateViewModel
+        public class EmployeeCreateDto
         {
 
 
@@ -23,7 +23,7 @@ namespace TestAPIproject.ViewModels
         public string Role { get; set; }
     }
 
-        public class EmployeeEditViewModel
+        public class EmployeeEditDto
         {
         [Required]
             public int Id { get; set; }

@@ -24,17 +24,16 @@ namespace TestAPIproject.Migrations
 
             modelBuilder.Entity("TestAPIproject.Models.Employee", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("EmployeeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeId"));
 
                     b.Property<string>("Department")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Role")
@@ -43,7 +42,10 @@ namespace TestAPIproject.Migrations
                     b.Property<int>("Salary")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.Property<int?>("manager_id")
+                        .HasColumnType("int");
+
+                    b.HasKey("EmployeeId");
 
                     b.ToTable("Employees");
                 });

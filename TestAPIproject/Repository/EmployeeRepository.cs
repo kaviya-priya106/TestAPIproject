@@ -15,9 +15,10 @@ namespace TestAPIproject.Repository
             _context = context;
         }
 
-        public async Task<IEnumerable<Employee>> GetAllAsync()
+        public async Task<IEnumerable<Employee>> GetAllAsync(int pageNumber, int pageSize)
         {
-            return await _context.Employees.ToListAsync();
+            return await _context.Employees.AsNoTracking().Skip((pageNumber - 1) * pageSize)
+        .Take(pageSize).ToListAsync();
         }
 
         public async Task<Employee?> GetByIdAsync(int id)

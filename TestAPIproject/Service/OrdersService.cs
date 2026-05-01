@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Caching.Memory;
 using TestAPIproject.Models;
 using TestAPIproject.Repository;
+using TestAPIproject.Dto;
 
 namespace TestAPIproject.Service
 {
@@ -48,7 +49,25 @@ namespace TestAPIproject.Service
             return await _repo.GetOrderByOrderId(orderid);
         }
 
-        public async Task<Order> AddOrderAsync(OrdersDto dto, int userId)
+        public async Task<Order> AddOrderAsync(AddOrdersDto dto, int userId)
+        {
+            var order = new Order(
+                userId,
+                dto.ProductName,
+                dto.Quantity,
+                dto.Price
+            );
+
+            await _repo.AddOrderAsync(order);
+
+            _cache.Remove($"orders_user_{order.UserId}");
+
+            _logger.LogInformation("Order created: {Product}", order.ProductName);
+
+            return order;
+        }
+
+        /*public async Task<Order> AddOrderAsync(OrdersDto dto, int userId)
         {
 
             var orders = _mapper.Map<Order>(dto);
@@ -59,9 +78,9 @@ namespace TestAPIproject.Service
             return orders;
 
 
-        }
+        }*/
 
-        public async Task UpdateOrdersAsync(UpdateOrders updateOrders, int id)
+        /*public async Task UpdateOrdersAsync(UpdateOrders updateOrders, int id)
         {
             var order = await _repo.GetOrderByOrderId(updateOrders.Id);
 
@@ -75,6 +94,25 @@ namespace TestAPIproject.Service
             await _repo.UpdateOrdersAsync();
             _cache.Remove($"orders_user_{order.UserId}");
 
+        }*/
+
+        public async Task UpdateOrdersAsync(UpdateOrdersDto dto, int id)
+        {
+            var order = await _repo.GetOrderByOrderId(dto.Id);
+
+            if (order == null)
+                throw new Exception("Order not found");
+
+            if (order.Id != id)
+                throw new Exception("Unauthorized");
+
+            order.SetProductName(dto.ProductName);
+            order.SetQuantity(dto.Quantity);
+            order.SetPrice(dto.Price);
+
+            await _repo.UpdateOrdersAsync();
+
+            _cache.Remove($"orders_user_{order.UserId}");
         }
 
 

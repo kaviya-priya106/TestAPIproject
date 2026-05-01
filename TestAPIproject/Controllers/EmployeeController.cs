@@ -39,9 +39,10 @@ namespace TestAPIproject.Controllers
         }
 
         [HttpGet("get-employees-list")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] PaginationParams pagination)
         {
-            var employees = await _services.GetAllAsync();
+            var employees = await _services.GetAllAsync(pagination);
+
             return Ok(employees);
         }
 
@@ -53,32 +54,42 @@ namespace TestAPIproject.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Create(EmployeeCreateViewModel dto)
+        public async Task<IActionResult> Create(EmployeeCreateDto dto)
         {
 
             var createdEmployee = await _services.AddAsync(dto);
 
             return CreatedAtAction(
                 nameof(GetById),
-                new { id = createdEmployee.Id },
+                new { id = createdEmployee.EmployeeId },
                 createdEmployee);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, EmployeeEditViewModel model)
+        public async Task<IActionResult> Update(int id, EmployeeEditDto model)
         {
             if (id != model.Id)
                 return BadRequest();
 
             await _services.UpdateAsync(model);
-            return NoContent();
+            return Ok(new ApiResponse<string>
+            {
+                Success = true,
+                Message = "Succeesfully Updated User information",
+                Data = "Success"
+            });
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await _services.DeleteAsync(id);
-            return NoContent();
+            return Ok(new ApiResponse<string>
+            {
+                Success = true,
+                Message = "Successfullt Deleted User information",
+                Data = "Success"
+            });
         }
     }
 }

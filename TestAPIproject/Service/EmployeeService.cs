@@ -1,4 +1,4 @@
-﻿using static TestAPIproject.ViewModels.EmployeeListViewModel;
+﻿using static TestAPIproject.ViewModels.EmployeeDto;
 using TestAPIproject.Models;
 using TestAPIproject.Repository;
 using TestAPIproject.ViewModels;
@@ -19,15 +19,14 @@ namespace TestAPIproject.Service
         }
 
        
-        public async Task<IEnumerable<EmployeeListViewModel>> GetAllAsync()
+        public async Task<IEnumerable<EmployeeDto>> GetAllAsync(PaginationParams pagination)
         {
-            var employees = await _repo.GetAllAsync();
-            // Manual Mapping
-            return employees.Select(e => new EmployeeListViewModel
+            var employees = await _repo.GetAllAsync(pagination.PageNumber, pagination.PageSize);
+            return employees.Select(e => new EmployeeDto
             {
-                Id = e.Id,
+                Id = e.EmployeeId,
                 Name = e.Name
-            }).ToList();
+            });
         }
 
         public async Task<Employee?> GetByIdAsync(int id)
@@ -37,7 +36,7 @@ namespace TestAPIproject.Service
 
      
 
-        public async Task<Employee> AddAsync(EmployeeCreateViewModel model)
+        public async Task<Employee> AddAsync(EmployeeCreateDto model)
         {
       
             var employee = _mapper.Map<Employee>(model);
@@ -49,11 +48,11 @@ namespace TestAPIproject.Service
             };*/
 
             await _repo.AddAsync(employee);
-            _logger.LogInformation(employee.Id, "added sccessfully");
+            _logger.LogInformation(employee.EmployeeId, "added sccessfully");
             return employee;
         }
 
-        public async Task UpdateAsync(EmployeeEditViewModel model)
+        public async Task UpdateAsync(EmployeeEditDto model)
         {
             var employee = await _repo.GetByIdAsync(model.Id);
 
@@ -61,7 +60,7 @@ namespace TestAPIproject.Service
                 throw new Exception("Employee not found");
 
             employee.Name = model.Name;
-            employee.Salary = model.Salary;
+            employee.UpdateSalary(model.Salary);
 
 
 

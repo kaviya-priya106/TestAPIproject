@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using TestAPIproject.Models;
 using TestAPIproject.ViewModels;
+using TestAPIproject.Dto;
 
 namespace TestAPIproject.profile
 {
@@ -8,10 +9,10 @@ namespace TestAPIproject.profile
     {
         public MappingProfile()
         {
-            CreateMap<EmployeeCreateViewModel, Employee>();
-            CreateMap< Employee,EmployeeListViewModel>();
-            CreateMap<OrdersDto, Order>();
-            CreateMap<Order, OrdersDto>();
+            CreateMap<EmployeeCreateDto, Employee>();
+            CreateMap< Employee,EmployeeDto>();
+            CreateMap<AddOrdersDto, Order>();
+            CreateMap<Order, AddOrdersDto>();
         }
     }
 }
