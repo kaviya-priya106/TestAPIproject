@@ -8,7 +8,7 @@ using TestAPIproject.Middleware;
 
 namespace TestAPIproject.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Manager")]
     [ApiController]
     [Route("api/[controller]")]
     public class EmployeeController : ControllerBase
@@ -22,7 +22,7 @@ namespace TestAPIproject.Controllers
         }
 
 
-        [Authorize]
+        
         [HttpGet("check-role")]
         public IActionResult checkRole()
         {
@@ -38,7 +38,7 @@ namespace TestAPIproject.Controllers
             }
         }
 
-        [HttpGet("get-employees-list")]
+        [HttpGet("employees")]
         public async Task<IActionResult> GetAll([FromQuery] PaginationParams pagination)
         {
             var employees = await _services.GetAllAsync(pagination);

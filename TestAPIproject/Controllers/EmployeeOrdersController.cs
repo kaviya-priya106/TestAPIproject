@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using TestAPIproject.Models;
+using TestAPIproject.Domain;
+using TestAPIproject.Middleware;
 using TestAPIproject.Application.Dto;
 using TestAPIproject.Application.Interfaces;
 
@@ -42,7 +43,7 @@ namespace TestAPIproject.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("Add-Orders")]
         public async Task<IActionResult> CreateOrders(AddOrdersDto dto)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
