@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TestAPIproject.Domain;
-using TestAPIproject.Infrastructure.Data;
+using EmployeeOrderManagementAPI.Domain;
+using EmployeeOrderManagementAPI.Infrastructure.Data;
 
-namespace TestAPIproject.Infrastructure.Repository
+namespace EmployeeOrderManagementAPI.Infrastructure.Repository
 {
     public class UserRepository : IUserRepository
     {

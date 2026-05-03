@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using TestAPIproject.Domain;
+using EmployeeOrderManagementAPI.Domain;
 
-namespace TestAPIproject.Infrastructure.Data
+namespace EmployeeOrderManagementAPI.Infrastructure.Data
 {
     public class AppDbContext : DbContext
     {

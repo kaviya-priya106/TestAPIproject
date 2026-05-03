@@ -1,6 +1,6 @@
-@TestAPIproject_HostAddress = http://localhost:5109
+@EmployeeOrderManagementAPI_HostAddress = http://localhost:5109
 
-GET {{TestAPIproject_HostAddress}}/weatherforecast/
+GET {{EmployeeOrderManagementAPI_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###

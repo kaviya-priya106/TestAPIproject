@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Caching.Memory;
-using TestAPIproject.Application.Dto;
-using TestAPIproject.Infrastructure.Repository;
-using TestAPIproject.Application.Interfaces;
-using TestAPIproject.Domain;
+using EmployeeOrderManagementAPI.Application.Dto;
+using EmployeeOrderManagementAPI.Infrastructure.Repository;
+using EmployeeOrderManagementAPI.Application.Interfaces;
+using EmployeeOrderManagementAPI.Domain;
 
-namespace TestAPIproject.Application.Service
+namespace EmployeeOrderManagementAPI.Application.Service
 {
     public class OrdersService : IOrdersService
     {

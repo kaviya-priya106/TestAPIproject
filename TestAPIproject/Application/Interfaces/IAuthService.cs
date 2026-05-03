@@ -1,6 +1,6 @@
-﻿using TestAPIproject.Domain;
+﻿using EmployeeOrderManagementAPI.Domain;
 
-namespace TestAPIproject.Application.Interfaces
+namespace EmployeeOrderManagementAPI.Application.Interfaces
 {
     public interface IAuthService
     {

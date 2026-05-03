@@ -6,8 +6,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using TestAPIproject.Application.Interfaces;
-using TestAPIproject.Domain;
+using EmployeeOrderManagementAPI.Application.Interfaces;
+using EmployeeOrderManagementAPI.Domain;
 
 [ApiController]
 [Route("api/[controller]")]

@@ -1,9 +1,9 @@
-﻿using static TestAPIproject.Application.Dto.EmployeeDto;
-using TestAPIproject.Application.Dto;
-using TestAPIproject.Domain;
-using TestAPIproject.Middleware;
+﻿using static EmployeeOrderManagementAPI.Application.Dto.EmployeeDto;
+using EmployeeOrderManagementAPI.Application.Dto;
+using EmployeeOrderManagementAPI.Domain;
+using EmployeeOrderManagementAPI.Middleware;
 
-namespace TestAPIproject.Application.Interfaces
+namespace EmployeeOrderManagementAPI.Application.Interfaces
 {
     public interface IEmployeeService
     {

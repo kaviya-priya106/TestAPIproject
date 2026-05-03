@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TestAPIproject.Application.Dto
+namespace EmployeeOrderManagementAPI.Application.Dto
 {
     public class EmployeeDto
     {

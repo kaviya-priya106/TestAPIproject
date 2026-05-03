@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using TestAPIproject.Application.Dto;
+using EmployeeOrderManagementAPI.Application.Dto;
 
-namespace TestAPIproject.Application.Validators
+namespace EmployeeOrderManagementAPI.Application.Validators
 {
     public class EmployeeValidator: AbstractValidator<EmployeeDto>
     {

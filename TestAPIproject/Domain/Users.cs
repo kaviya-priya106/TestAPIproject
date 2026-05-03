@@ -1,6 +1,6 @@
 ﻿//using FluentValidation;
 
-namespace TestAPIproject.Domain
+namespace EmployeeOrderManagementAPI.Domain
 {
     public class Users
     {

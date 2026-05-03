@@ -1,7 +1,7 @@
-﻿using TestAPIproject.Application.Dto;
-using TestAPIproject.Domain;
+﻿using EmployeeOrderManagementAPI.Application.Dto;
+using EmployeeOrderManagementAPI.Domain;
 
-namespace TestAPIproject.Application.Interfaces
+namespace EmployeeOrderManagementAPI.Application.Interfaces
 {
     public interface IOrdersService
     {

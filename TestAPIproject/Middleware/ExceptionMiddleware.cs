@@ -1,7 +1,7 @@
 ﻿using Serilog;
-using TestAPIproject.Domain;
+using EmployeeOrderManagementAPI.Domain;
 
-namespace TestAPIproject.Middleware
+namespace EmployeeOrderManagementAPI.Middleware
 {
     public class ExceptionMiddleware
     {

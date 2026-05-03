@@ -1,12 +1,12 @@
-﻿using static TestAPIproject.Application.Dto.EmployeeDto;
+﻿using static EmployeeOrderManagementAPI.Application.Dto.EmployeeDto;
 using AutoMapper;
-using TestAPIproject.Application.Dto;
-using TestAPIproject.Infrastructure.Repository;
-using TestAPIproject.Application.Interfaces;
-using TestAPIproject.Domain;
-using TestAPIproject.Middleware;
+using EmployeeOrderManagementAPI.Application.Dto;
+using EmployeeOrderManagementAPI.Infrastructure.Repository;
+using EmployeeOrderManagementAPI.Application.Interfaces;
+using EmployeeOrderManagementAPI.Domain;
+using EmployeeOrderManagementAPI.Middleware;
 
-namespace TestAPIproject.Application.Service
+namespace EmployeeOrderManagementAPI.Application.Service
 {
     public class EmployeeService : IEmployeeService
     {

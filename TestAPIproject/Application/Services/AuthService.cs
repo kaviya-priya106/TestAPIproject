@@ -4,12 +4,12 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TestAPIproject.Infrastructure.Repository;
-using TestAPIproject.Infrastructure.Data;
-using TestAPIproject.Application.Interfaces;
-using TestAPIproject.Domain;
+using EmployeeOrderManagementAPI.Infrastructure.Repository;
+using EmployeeOrderManagementAPI.Infrastructure.Data;
+using EmployeeOrderManagementAPI.Application.Interfaces;
+using EmployeeOrderManagementAPI.Domain;
 
-namespace TestAPIproject.Application.Service
+namespace EmployeeOrderManagementAPI.Application.Service
 {
     public class AuthService : IAuthService
     {

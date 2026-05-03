@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TestAPIproject.Application.Service;
-using TestAPIproject.Domain;
-using TestAPIproject.Infrastructure.Data;
+using EmployeeOrderManagementAPI.Application.Service;
+using EmployeeOrderManagementAPI.Domain;
+using EmployeeOrderManagementAPI.Infrastructure.Data;
 
-namespace TestAPIproject.Infrastructure.Repository
+namespace EmployeeOrderManagementAPI.Infrastructure.Repository
 {
     public class OrdersRepository : IOrdersRepository
     {

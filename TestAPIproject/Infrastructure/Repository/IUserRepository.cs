@@ -1,6 +1,6 @@
-﻿using TestAPIproject.Domain;
+﻿using EmployeeOrderManagementAPI.Domain;
 
-namespace TestAPIproject.Infrastructure.Repository
+namespace EmployeeOrderManagementAPI.Infrastructure.Repository
 {
     public interface IUserRepository
     {

@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TestAPIproject.Infrastructure.Data;
+using EmployeeOrderManagementAPI.Infrastructure.Data;
 
 #nullable disable
 
-namespace TestAPIproject.Migrations
+namespace EmployeeOrderManagementAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
@@ -22,7 +22,7 @@ namespace TestAPIproject.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("TestAPIproject.Domain.Employee", b =>
+            modelBuilder.Entity("EmployeeOrderManagementAPI.Domain.Employee", b =>
                 {
                     b.Property<int>("EmployeeId")
                         .ValueGeneratedOnAdd()
@@ -50,7 +50,7 @@ namespace TestAPIproject.Migrations
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("TestAPIproject.Domain.Order", b =>
+            modelBuilder.Entity("EmployeeOrderManagementAPI.Domain.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -79,7 +79,7 @@ namespace TestAPIproject.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("TestAPIproject.Domain.Users", b =>
+            modelBuilder.Entity("EmployeeOrderManagementAPI.Domain.Users", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

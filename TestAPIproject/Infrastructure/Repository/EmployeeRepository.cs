@@ -1,11 +1,11 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
-using TestAPIproject.Application.Dto;
-using TestAPIproject.Domain;
-using TestAPIproject.Infrastructure.Data;
+using EmployeeOrderManagementAPI.Application.Dto;
+using EmployeeOrderManagementAPI.Domain;
+using EmployeeOrderManagementAPI.Infrastructure.Data;
 
-namespace TestAPIproject.Infrastructure.Repository
+namespace EmployeeOrderManagementAPI.Infrastructure.Repository
 {
     public class EmployeeRepository : IEmployeeRepository
     {

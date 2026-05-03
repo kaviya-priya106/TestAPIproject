@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TestAPIproject.Middleware;
+using EmployeeOrderManagementAPI.Middleware;
 using Serilog;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Options;
-using TestAPIproject.Application.Service;
-using TestAPIproject.Infrastructure.Repository;
-using TestAPIproject.Infrastructure.Data;
-using TestAPIproject.Application.Interfaces;
+using EmployeeOrderManagementAPI.Application.Service;
+using EmployeeOrderManagementAPI.Infrastructure.Repository;
+using EmployeeOrderManagementAPI.Infrastructure.Data;
+using EmployeeOrderManagementAPI.Application.Interfaces;
 using FluentValidation;
 
 

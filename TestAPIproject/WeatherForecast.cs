@@ -1,4 +1,4 @@
-namespace TestAPIproject
+namespace EmployeeOrderManagementAPI
 {
     public class WeatherForecast
     {

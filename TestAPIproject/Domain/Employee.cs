@@ -1,7 +1,7 @@
 ﻿//using FluentValidation;
 using System.ComponentModel.DataAnnotations;
 
-namespace TestAPIproject.Domain
+namespace EmployeeOrderManagementAPI.Domain
 {
     public class Employee
     {

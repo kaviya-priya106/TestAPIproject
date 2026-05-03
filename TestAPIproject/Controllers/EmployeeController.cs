@@ -3,12 +3,12 @@ using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using TestAPIproject.Application.Dto;
-using TestAPIproject.Application.Interfaces;
-using TestAPIproject.Domain;
-using TestAPIproject.Middleware;
+using EmployeeOrderManagementAPI.Application.Dto;
+using EmployeeOrderManagementAPI.Application.Interfaces;
+using EmployeeOrderManagementAPI.Domain;
+using EmployeeOrderManagementAPI.Middleware;
 
-namespace TestAPIproject.Controllers
+namespace EmployeeOrderManagementAPI.Controllers
 {
     [Authorize]
     [ApiController]

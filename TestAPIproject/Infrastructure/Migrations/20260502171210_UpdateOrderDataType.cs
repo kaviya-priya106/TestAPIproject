@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace TestAPIproject.Migrations
+namespace EmployeeOrderManagementAPI.Migrations
 {
     /// <inheritdoc />
     public partial class UpdateOrderDataType : Migration
