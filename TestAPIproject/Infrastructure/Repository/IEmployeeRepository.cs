@@ -1,4 +1,5 @@
-﻿using TestAPIproject.Domain;
+﻿using TestAPIproject.Application.Dto;
+using TestAPIproject.Domain;
 
 namespace TestAPIproject.Infrastructure.Repository
 {

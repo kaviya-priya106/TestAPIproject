@@ -2,5 +2,5 @@
     @Id INT
 AS
 BEGIN
-    SELECT * FROM Employees WHERE Id = @Id
+    SELECT * FROM Employees WHERE EmployeeId = @Id
 END

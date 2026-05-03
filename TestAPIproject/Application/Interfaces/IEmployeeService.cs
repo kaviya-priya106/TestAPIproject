@@ -8,9 +8,11 @@ namespace TestAPIproject.Application.Interfaces
     public interface IEmployeeService
     {
         Task<IEnumerable<EmployeeDto>> GetAllAsync(PaginationParams pagination);
-        Task<Employee?> GetByIdAsync(int id);
-        Task<Employee?> AddAsync(EmployeeCreateDto employee);
+        Task<EmployeeDto?> GetByIdAsync(int id);
+        Task<EmployeeDto> AddAsync(EmployeeCreateDto employee);
         Task UpdateAsync(EmployeeEditDto employee);
+
+        Task PatchEmployeeAsync(int id, PatchEmployeeDto dto);
         Task DeleteAsync(int id);
 
     }

@@ -5,11 +5,11 @@ namespace TestAPIproject.Application.Interfaces
 {
     public interface IOrdersService
     {
-        Task<Order?> AddOrderAsync(AddOrdersDto dto, int userId);
-        Task<List<Order>> GetOrderByUserId(int userId);
-        Task<Order> GetOrderByOrderId(int orderId);
+        Task<OrdersDto> AddOrderAsync(AddOrdersDto dto, int userId);
+        Task<IEnumerable<OrdersDto>> GetOrderByUserId(int userId);
+        Task<OrdersDto> GetOrderByOrderId(int orderId);
         Task UpdateOrdersAsync(UpdateOrdersDto updateOrders, int id);
-
+        Task PatchOrderAsync(int orderId, int userId, PatchOrderDto dto);
         Task DeleteOrdersAsync(int orderId, int userId);
     }
 }

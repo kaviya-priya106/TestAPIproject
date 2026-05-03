@@ -1,5 +1,5 @@
 ﻿using Serilog;
-using TestAPIproject.Models;
+using TestAPIproject.Domain;
 
 namespace TestAPIproject.Middleware
 {

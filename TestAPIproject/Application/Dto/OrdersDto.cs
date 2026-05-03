@@ -2,6 +2,12 @@
 {
     public class OrdersDto
     {
+        public int Id { get; set; }
+        public string ProductName { get; set; }
+        public int Quantity { get; set; }
+        public decimal Price { get; set; }
+
+        public decimal TotalAmount { get; set; } // ⭐ derived field (nice touch)
     }
 
     public class AddOrdersDto
@@ -17,6 +23,14 @@
         public string ProductName { get; set; }
         public int Quantity { get; set; }
         public decimal Price { get; set; }
+    }
+
+    public class PatchOrderDto
+    {
+        public string? ProductName { get; set; }
+        public int? Quantity { get; set; }
+        public decimal? Price { get; set; }
+
     }
 
     /*public class UpdateOrders

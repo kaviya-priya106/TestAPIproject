@@ -5,20 +5,24 @@ using TestAPIproject.Domain;
 using TestAPIproject.Middleware;
 using TestAPIproject.Application.Dto;
 using TestAPIproject.Application.Interfaces;
+using TestAPIproject.Application.Service;
+using FluentValidation;
 
 namespace TestAPIproject.Controllers
 {
     [Authorize]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/orders")]
     public class EmployeeOrdersController : ControllerBase
     {
         private IOrdersService _services;
+        private readonly IValidator<PatchOrderDto> _validator;
 
 
-        public EmployeeOrdersController(IOrdersService repo)
+        public EmployeeOrdersController(IOrdersService repo, IValidator<PatchOrderDto> validator)
         {
             _services = repo;
+            _validator = validator;
         }
 
         /* [HttpGet]
@@ -29,7 +33,10 @@ namespace TestAPIproject.Controllers
         [HttpGet("my-orders")]
         public async Task<IActionResult> GetMyOrders()
         {
-            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
+                return Unauthorized();
 
             var orders = await _services.GetOrderByUserId(userId);
             if (orders != null)
@@ -43,20 +50,17 @@ namespace TestAPIproject.Controllers
             }
         }
 
-        [HttpPost("Add-Orders")]
+        [HttpPost]
         public async Task<IActionResult> CreateOrders(AddOrdersDto dto)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
 
-            if (userIdClaim == null)
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
                 return Unauthorized();
 
-            var userId = int.Parse(userIdClaim.Value);
-
             var createdOrders = await _services.AddOrderAsync(dto,userId);
-            return Ok(createdOrders);
+            return CreatedAtAction(nameof(GetMyOrders), new { id = createdOrders.Id }, createdOrders);
 
-            //return CreatedAtAction( nameof(GetById), new { id = createdOrders.Id }, createdOrders);
         }
 
 
@@ -77,16 +81,34 @@ namespace TestAPIproject.Controllers
             });
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int orderId, int userId)
+        [HttpPatch("{orderId}")]
+        public async Task<IActionResult> PatchOrder(int orderId, PatchOrderDto dto)
         {
-            await _services.DeleteOrdersAsync(orderId,userId);
-            return Ok(new ApiResponse<string>
-            {
-                Success = true,
-                Message = "Order is deleted",
-                Data = "Success"
-            });
+            var validationResult = await _validator.ValidateAsync(dto);
+
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.Errors);
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
+                return Unauthorized();
+
+            await _services.PatchOrderAsync(orderId, userId, dto);
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);
+
+            if (userIdClaim == null || !int.TryParse(userIdClaim.Value, out int userId))
+                return Unauthorized();
+
+            await _services.DeleteOrdersAsync(id, userId);
+
+            return NoContent();
         }
     }
 }

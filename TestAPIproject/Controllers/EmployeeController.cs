@@ -1,41 +1,38 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using TestAPIproject.Application.Dto;
 using TestAPIproject.Application.Interfaces;
+using TestAPIproject.Domain;
 using TestAPIproject.Middleware;
 
 namespace TestAPIproject.Controllers
 {
-    [Authorize(Roles = "Admin,Manager")]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class EmployeeController : ControllerBase
     {
         private IEmployeeService _services;
+        private readonly IValidator<PatchEmployeeDto> _validator;
 
-
-        public EmployeeController(IEmployeeService repo)
+        public EmployeeController(IEmployeeService repo, IValidator<PatchEmployeeDto> validator)
         {
             _services = repo;
+             _validator= validator;
         }
 
 
         
-        [HttpGet("check-role")]
-        public IActionResult checkRole()
+        [HttpGet("CheckRole")]
+        public IActionResult GetCurrentUser()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var role = User.FindFirst(ClaimTypes.Role)?.Value;
-            if (role == "Admin")
-            {
-                return Ok("You're" + role);
-            }
-            else
-            {
-                return Ok("You're" + role);
-            }
+
+            return Ok(new { userId, role });
         }
 
         [HttpGet("employees")]
@@ -46,15 +43,23 @@ namespace TestAPIproject.Controllers
             return Ok(employees);
         }
 
+
         [HttpGet("{id}")]
         public async Task< IActionResult> GetById(int id)
         {
-            return Ok(await _services.GetByIdAsync(id));
+            var employee = await _services.GetByIdAsync(id);
+
+            if (employee == null)
+                return NotFound();
+
+            return Ok(employee);
         }
 
 
+
+        [Authorize(Roles = "Admin,Manager")]
         [HttpPost]
-        public async Task<IActionResult> Create(EmployeeCreateDto dto)
+        public async Task<IActionResult> Create([FromBody] EmployeeCreateDto dto)
         {
 
             var createdEmployee = await _services.AddAsync(dto);
@@ -65,6 +70,18 @@ namespace TestAPIproject.Controllers
                 createdEmployee);
         }
 
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> PatchEmployee(int id, PatchEmployeeDto dto)
+        {
+            var result = await _validator.ValidateAsync(dto);
+
+            if (!result.IsValid)
+                return BadRequest(result.Errors);
+            await _services.PatchEmployeeAsync(id,dto);
+            return NoContent();
+        }
+
+        [Authorize(Roles = "Admin,Manager")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, EmployeeEditDto model)
         {
@@ -72,24 +89,15 @@ namespace TestAPIproject.Controllers
                 return BadRequest();
 
             await _services.UpdateAsync(model);
-            return Ok(new ApiResponse<string>
-            {
-                Success = true,
-                Message = "Succeesfully Updated User information",
-                Data = "Success"
-            });
+            return NoContent(); 
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await _services.DeleteAsync(id);
-            return Ok(new ApiResponse<string>
-            {
-                Success = true,
-                Message = "Successfullt Deleted User information",
-                Data = "Success"
-            });
+            return NoContent(); 
         }
     }
 }

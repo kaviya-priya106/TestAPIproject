@@ -9,6 +9,9 @@ using TestAPIproject.Application.Service;
 using TestAPIproject.Infrastructure.Repository;
 using TestAPIproject.Infrastructure.Data;
 using TestAPIproject.Application.Interfaces;
+using FluentValidation;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -95,6 +98,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IOrdersRepository, OrdersRepository>();
 builder.Services.AddScoped<IOrdersService, OrdersService>();
 builder.Services.AddMemoryCache();
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 // 🔹 AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
 

@@ -12,9 +12,10 @@ namespace TestAPIproject.Application.Service
 
         private readonly IOrdersRepository _repo;
         private readonly IMapper _mapper;
-        private readonly ILogger<EmployeeService> _logger;
+        private readonly ILogger<OrdersService> _logger;
         private readonly IMemoryCache _cache;
-        public OrdersService(IOrdersRepository repo, IMapper mapper, ILogger<EmployeeService> logger, IMemoryCache cache)
+
+        public OrdersService(IOrdersRepository repo, IMapper mapper, ILogger<OrdersService> logger, IMemoryCache cache)
         {
             _repo = repo;
             _mapper = mapper;
@@ -23,34 +24,49 @@ namespace TestAPIproject.Application.Service
         }
 
 
-        public async Task<List<Order?>> GetOrderByUserId(int id)
+        public async Task<IEnumerable<OrdersDto>> GetOrderByUserId(int id)
         {
             string cacheKey = $"orders_user_{id}";
 
-            // Try get from cache
             if (!_cache.TryGetValue(cacheKey, out List<Order> orders))
             {
-                // Not in cache → fetch from DB
                 orders = await _repo.GetOrderByUserId(id);
 
-                // Store in cache
                 var cacheOptions = new MemoryCacheEntryOptions()
-                    .SetAbsoluteExpiration(TimeSpan.FromMinutes(5)) // expires in 5 mins
-                    .SetSlidingExpiration(TimeSpan.FromMinutes(2)); // resets if accessed
+                    .SetAbsoluteExpiration(TimeSpan.FromMinutes(5))
+                    .SetSlidingExpiration(TimeSpan.FromMinutes(2));
 
                 _cache.Set(cacheKey, orders, cacheOptions);
             }
 
-            return orders;
-            //return await _repo.GetOrderByUserId(id);
+            return orders.Select(o => new OrdersDto
+            {
+                Id = o.Id,
+                ProductName = o.ProductName,
+                Quantity = o.Quantity,
+                Price = o.Price,
+                TotalAmount = o.Quantity * o.Price
+            }).ToList();
         }
 
-        public async Task<Order?> GetOrderByOrderId(int orderid)
+        public async Task<OrdersDto> GetOrderByOrderId(int orderid)
         {
-            return await _repo.GetOrderByOrderId(orderid);
+            var order = await _repo.GetOrderByOrderId(orderid);
+
+            if (order == null)
+                return null;
+
+            return new OrdersDto
+            {
+                Id = order.Id,
+                ProductName = order.ProductName,
+                Quantity = order.Quantity,
+                Price = order.Price,
+                TotalAmount = order.Quantity * order.Price
+            };
         }
 
-        public async Task<Order> AddOrderAsync(AddOrdersDto dto, int userId)
+        public async Task<OrdersDto> AddOrderAsync(AddOrdersDto dto, int userId)
         {
             var order = new Order(
                 userId,
@@ -65,7 +81,14 @@ namespace TestAPIproject.Application.Service
 
             _logger.LogInformation("Order created: {Product}", order.ProductName);
 
-            return order;
+            return new OrdersDto
+            {
+                Id = order.Id,
+                ProductName = order.ProductName,
+                Quantity = order.Quantity,
+                Price = order.Price,
+                TotalAmount = order.Quantity * order.Price
+            };
         }
 
         /*public async Task<Order> AddOrderAsync(OrdersDto dto, int userId)
@@ -116,7 +139,32 @@ namespace TestAPIproject.Application.Service
             _cache.Remove($"orders_user_{order.UserId}");
         }
 
+        public async Task PatchOrderAsync(int orderId, int userId, PatchOrderDto dto)
+        {
+            var order = await _repo.GetOrderByOrderId(orderId);
 
+            if (order == null)
+                throw new Exception("Order not found");
+
+            // Authorization check (important)
+            if (order.UserId != userId)
+                throw new Exception("Unauthorized");
+
+            if (dto.ProductName != null)
+                order.SetProductName(dto.ProductName);
+
+            if (dto.Quantity.HasValue)
+                order.SetQuantity(dto.Quantity.Value);
+
+            if (dto.Price.HasValue)
+                order.SetPrice(dto.Price.Value);
+
+
+            await _repo.UpdateOrdersAsync();
+
+            // Clear cache (since you already use cache)
+            _cache.Remove($"orders_user_{order.UserId}");
+        }
         public async Task DeleteOrdersAsync(int orderId, int userId)
         {
             await _repo.DeleteOrdersAsync(orderId);

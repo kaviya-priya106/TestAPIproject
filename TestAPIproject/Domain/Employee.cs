@@ -9,10 +9,10 @@ namespace TestAPIproject.Domain
         public int EmployeeId { get; set; }
         public string? Name { get; set; }
 
-        public int Salary { get; private set; }
+        public decimal Salary { get; private set; }
 
 
-        public void UpdateSalary(int salary)
+        public void UpdateSalary(decimal salary)
         {
             if (salary <= 0)
                 throw new Exception("Salary must be greater than zero");

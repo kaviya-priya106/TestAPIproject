@@ -4,7 +4,7 @@ namespace TestAPIproject.Application.Dto
 {
     public class EmployeeDto
     {
-        public int Id { get; set; }
+        public int EmployeeId { get; set; }
         public string Name { get; set; }
 
         public string Department { get; set; }
@@ -30,10 +30,25 @@ namespace TestAPIproject.Application.Dto
 
         [Required(ErrorMessage = "Name is required")]
         [StringLength(50)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [Range(10000, 1000000)]
-        public int Salary { get; set; }
+        public decimal Salary { get; set; }
+        public string? Department { get; set; }
+
+        public string? Role { get; set; }
+
+        public int? Manager_Id {  get; set; }
+    }
+
+
+    public class PatchEmployeeDto
+    {
+        public string? Name { get; set; }
+        public decimal? Salary { get; set; }
+        public string? Department { get; set; }
+        public string? Role { get; set; }
+        public int? Manager_Id { get; set; }
     }
 }
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
+using TestAPIproject.Application.Dto;
 using TestAPIproject.Domain;
 using TestAPIproject.Infrastructure.Data;
 
@@ -27,7 +28,6 @@ namespace TestAPIproject.Infrastructure.Repository
 
             var result = await _context.Employees
      .FromSqlRaw("EXEC GetEmployeeById @Id", param)
-     .AsNoTracking()
      .ToListAsync();
 
             return result.FirstOrDefault();
